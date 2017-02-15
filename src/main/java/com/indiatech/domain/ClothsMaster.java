@@ -3,12 +3,16 @@ package com.indiatech.domain;
 import com.indiatech.Enum.ClothsBrandEnum;
 import com.indiatech.Enum.ClothsSizeEnum;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dhruti on 14/02/17.
@@ -32,6 +36,9 @@ public class ClothsMaster extends BaseEntity {
 	@JoinColumn(name = "type_id", referencedColumnName = "id")
 	@ManyToOne
 	private ClothsType clothsType;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cloths")
+	private List<TrasactionMaster> trasactionMasterList = new ArrayList<TrasactionMaster>();
 
 	public ClothsMaster() {
 	}
@@ -81,5 +88,13 @@ public class ClothsMaster extends BaseEntity {
 
 	public void setClothsType(ClothsType clothsType) {
 		this.clothsType = clothsType;
+	}
+
+	public List<TrasactionMaster> getTrasactionMasterList() {
+		return trasactionMasterList;
+	}
+
+	public void setTrasactionMasterList(List<TrasactionMaster> trasactionMasterList) {
+		this.trasactionMasterList = trasactionMasterList;
 	}
 }

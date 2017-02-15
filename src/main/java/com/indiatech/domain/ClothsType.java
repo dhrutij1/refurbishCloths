@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class ClothsType extends BaseEntity {
 	private String typeName;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clothsType")
-	private List<ClothsMaster> clothsMaster;
+	private List<ClothsMaster> clothsMaster = new ArrayList<ClothsMaster>();
 
 	@JoinColumn(name = "catagory_id", referencedColumnName = "id")
 	@ManyToOne
