@@ -1,40 +1,48 @@
 package com.indiatech.domain;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Created by Dhruti on 07/02/17.
+ * Created by Dhruti on 14/02/17.
  */
 @Entity
-@Table(name = "cloths_catagory")
-public class ClothsCatagory {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name ="id", updatable = false, nullable = false)
-	private Long id;
-	@Column(name ="catagory_name", updatable = false, nullable = false)
-	private String catName ;
+@Table(name = "CLOTHS_CATAGORY")
+public class ClothsCatagory extends BaseEntity {
 
-	public Long getId() {
-		return id;
+	@Column(name = "CATAGORY_NAME", nullable = false, length = 500)
+	private String catagoryName;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clothsCatagory")
+	private List<ClothsType> clothsTypes = new ArrayList<ClothsType>();
+
+	public ClothsCatagory() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public ClothsCatagory(String catagoryName, List<ClothsType> clothsTypes) {
+
+		this.catagoryName = catagoryName;
+		this.clothsTypes = clothsTypes;
 	}
 
-	public String getCatName() {
-		return catName;
+	public String getCatagoryName() {
+		return catagoryName;
 	}
 
-	public void setCatName(String catName) {
-		this.catName = catName;
+	public void setCatagoryName(String catagoryName) {
+		this.catagoryName = catagoryName;
+	}
+
+	public List<ClothsType> getClothsTypes() {
+		return clothsTypes;
+	}
+
+	public void setClothsTypes(List<ClothsType> clothsTypes) {
+		this.clothsTypes = clothsTypes;
 	}
 }
